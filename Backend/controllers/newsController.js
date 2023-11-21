@@ -9,7 +9,7 @@ export const getAllNews = async (req, res) => {
 
   try {
     if (req.method === "GET") {
-      const newsList = await News.find();
+      const newsList = await News.find().populate('business'); // Populate para obtener detalles del negocio asociado
       res.status(200).json(newsList);
     } else if (req.method === "POST") {
       const news = await News.create(req.body);
@@ -22,13 +22,13 @@ export const getAllNews = async (req, res) => {
 
 // Obtener una noticia por su ID
 export const getNewsById = async (req, res) => {
-  const { id } = req.params; // Utiliza req.params para obtener el ID
+  const { id } = req.params;
 
   await dbConnect();
 
   try {
     if (req.method === "GET") {
-      const news = await News.findById(id);
+      const news = await News.findById(id).populate('business'); // Populate para obtener detalles del negocio asociado
       if (!news) {
         return res.status(404).json({ message: "Noticia no encontrada" });
       }
@@ -36,10 +36,10 @@ export const getNewsById = async (req, res) => {
     } else if (req.method === "PUT") {
       const news = await News.findByIdAndUpdate(id, req.body, {
         new: true,
-      });
+      }).populate('business'); // Populate para obtener detalles del negocio asociado
       res.status(200).json(news);
     } else if (req.method === "DELETE") {
-      const news = await News.findByIdAndDelete(id);
+      const news = await News.findByIdAndDelete(id).populate('business'); // Populate para obtener detalles del negocio asociado
       if (!news) {
         return res.status(404).json({ message: "Noticia no encontrada" });
       }
@@ -66,7 +66,7 @@ export const createNews = async (req, res) => {
 
 // Actualizar una noticia por su ID
 export const updateNews = async (req, res) => {
-  const { id } = req.params; // Utiliza req.params para obtener el ID
+  const { id } = req.params;
 
   await dbConnect();
 
@@ -74,7 +74,7 @@ export const updateNews = async (req, res) => {
     if (req.method === "PUT") {
       const news = await News.findByIdAndUpdate(id, req.body, {
         new: true,
-      });
+      }).populate('business'); // Populate para obtener detalles del negocio asociado
       res.status(200).json(news);
     }
   } catch (err) {
@@ -84,13 +84,13 @@ export const updateNews = async (req, res) => {
 
 // Eliminar una noticia por su ID
 export const deleteNews = async (req, res) => {
-  const { id } = req.params; // Utiliza req.params para obtener el ID
+  const { id } = req.params;
 
   await dbConnect();
 
   try {
     if (req.method === "DELETE") {
-      const news = await News.findByIdAndDelete(id);
+      const news = await News.findByIdAndDelete(id).populate('business'); // Populate para obtener detalles del negocio asociado
       if (!news) {
         return res.status(404).json({ message: "Noticia no encontrada" });
       }

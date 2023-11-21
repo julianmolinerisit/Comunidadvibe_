@@ -9,7 +9,7 @@ const getNewsById = async (req, res) => {
   await dbConnect();
 
   try {
-    const news = await News.findById(id);
+    const news = await News.findById(id).populate('business'); // Agregar populate para obtener detalles del negocio asociado
 
     if (!news) {
       return res.status(404).json({ error: "Noticia no encontrada" });

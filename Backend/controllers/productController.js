@@ -5,14 +5,13 @@ import Product from "../models/Product.js";
 export const getProductById = async (req, res) => {
   const { method, query: { id } } = req;
   console.log("Product ID:", id);
-  console.log("Product ID from params:", req.params); // Agrega este console.log
-
+  console.log("Product ID from params:", req.params);
 
   await dbConnect();
 
   if (method === "GET") {
     try {
-      const product = await Product.findById(id);
+      const product = await Product.findById(id).populate("business");
       if (!product) {
         return res.status(404).json({ error: "Product not found" });
       }
@@ -50,7 +49,7 @@ export const getAllProducts = async (req, res) => {
 
   if (method === "GET") {
     try {
-      const products = await Product.find();
+      const products = await Product.find().populate("business");
       res.status(200).json(products);
     } catch (err) {
       res.status(500).json({ error: "Error fetching products" });
@@ -67,8 +66,10 @@ export const getAllProducts = async (req, res) => {
 
 // Crear un nuevo producto
 export const createProduct = async (req, res) => {
+  const { businessId, ...productData } = req.body;
+
   try {
-    const product = await Product.create(req.body);
+    const product = await Product.create({ ...productData, business: businessId });
     res.status(201).json(product);
   } catch (err) {
     res.status(500).json({ error: "Error creating product" });
@@ -79,10 +80,10 @@ export const createProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await Product.findByIdAndUpdate(id, req.body, {
+    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.status(200).json(product);
+    res.status(200).json(updatedProduct);
   } catch (err) {
     res.status(500).json({ error: "Error updating product" });
   }

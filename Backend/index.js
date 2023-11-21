@@ -26,6 +26,8 @@ import loginRoute from './routes/api/user.js'; // Rutas de autenticación de usu
 import productidRoute from './routes/api/productid.js'; // Importa la nueva ruta de getProductById
 import getNewsByIdRoute from "./routes/api/newsid.js"; // Importa las rutas de noticias por ID
 import getOrderById from './routes/api/orderid.js'; // Asegúrate de que la ruta sea correcta
+import businessRoute from './routes/api/business.js'; // Agrega la nueva ruta de negocios
+
 
 // Usa tus rutas
 app.use('/api/news', newsRoute);
@@ -35,6 +37,7 @@ app.use('/api/user', loginRoute); // Agrega la ruta de autenticación de usuario
 app.use('/api/productid', productidRoute); // Agrega la nueva ruta de getProductById
 app.use('/api/news/id', getNewsByIdRoute); // Agrega la nueva ruta de noticias por ID
 app.use('/api/orderid', getOrderById); // Asegúrate de que la ruta sea correcta
+app.use('/api/business', businessRoute); // Agrega la ruta de negocios
 
 
 // Middleware de manejo de errores personalizado

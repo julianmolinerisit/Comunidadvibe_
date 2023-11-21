@@ -21,7 +21,7 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     prices: {
-      type: [Number], // Cambio aquí, agrega el array de precios por tamaños
+      type: [Number],
       required: true,
     },
     extraOptions: {
@@ -31,6 +31,11 @@ const ProductSchema = new mongoose.Schema(
           price: { type: Number, required: true },
         },
       ],
+    },
+    business: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Business",
+      required: true,
     },
   },
   { timestamps: true }

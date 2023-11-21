@@ -37,6 +37,12 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       maxlength: 500,
     },
+    // Agrega la referencia al negocio
+    business: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Business",
+      required: true,
+    },
   },
   { timestamps: true }
 );

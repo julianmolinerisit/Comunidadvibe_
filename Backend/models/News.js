@@ -8,7 +8,7 @@ const NewsSchema = new mongoose.Schema(
       maxlength: 200,
     },
     subtitle: {
-      type: String, // Agregar el campo de subtítulo
+      type: String,
       maxlength: 300,
     },
     content: {
@@ -16,7 +16,15 @@ const NewsSchema = new mongoose.Schema(
       required: true,
     },
     imageUrl: {
-      type: String, // Referencia a la imagen
+      type: String,
+    },
+    publicationDate: {
+      type: Date, // Campo para la fecha de publicación
+      default: Date.now,
+    },
+    business: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Business', // Referencia al modelo de Business
     },
     // Otros campos que desees agregar
   },

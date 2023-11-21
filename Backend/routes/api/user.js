@@ -6,7 +6,6 @@ const router = express.Router();
 
 // Rutas de autenticación
 router.post('/login', loginUser); // Ruta para el inicio de sesión
-router.post('/register', registerUser); // Ruta para el registro de usuarios
 router.post('/logout', logoutUser); // Ruta para cerrar sesión (si es necesario)
 
 export default router;

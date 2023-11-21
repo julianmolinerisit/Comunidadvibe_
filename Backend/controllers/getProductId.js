@@ -7,7 +7,7 @@ const getProductById = async (req, res) => {
   await dbConnect();
 
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate("business");
 
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
